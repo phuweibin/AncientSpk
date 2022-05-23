@@ -1,0 +1,33 @@
+#top{
+    width: 100%;
+    height: 5%;
+    background-color: rgb(176,43,197);
+}
+.top_font{
+    font-family: 黑体;
+    font-size: 15px;
+    }
+.pad_rgiht_65px{
+    padding-right: 65px;
+}
+.input_style{
+    width: 100%;
+    height: 100%;
+    resize: none;
+}
+
+button{
+    width: 49px;
+    height: 49px;
+    border: none;
+    padding: 0px;
+    background-color: grey;
+}
+
+button :hover{
+    background-color:  rgb(176,43,197);
+}
+
+button :active{
+    background-color: grey;
+}

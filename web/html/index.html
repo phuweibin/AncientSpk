@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+    <head> 
+        <meta charset="UTF-8">
+        <title>古文-白话文机器翻译</title>
+        <link rel="stylesheet" href="index.css">
+        <script>
+            function createRequest(){
+                return new XMLHttpRequest();
+            }
+            function execute(){
+                let content = document.getElementById("input").value;
+
+                if(content.size < 1 || content == ""){
+                    alert("请输入要处理的内容！");
+                    return;
+                }
+
+                let task = document.getElementById("task").value;
+
+                let url = "http://localhost:8080/ancientspeak/index/process.do?taskType=" + task + "&content="+content;
+
+                let request = createRequest();
+                request.timeout =3*1000;
+                request.responseType = "text";
+                request.open("GET",url,true);
+                request.onload = function (e){
+                    if(this.status == 200 || this.status == 304){
+                        document.getElementById("output").innerText = request.responseText;
+                    }
+                }
+                request.send(null);
+            }
+        </script>
+    </head>
+    <body style="height:100%">
+        <div id="top"></div>
+        <div id="center" style="height: 80%;">
+            <div id="task_choice" style=" height: 6%; padding-top: 5px; margin-left: 85.5%;" > 
+                <label class="top_font">当前任务：</label>
+                <select id="task">
+                    <option class="top_font" value="translate">翻译</option>
+                    <option class="top_font" value="tokenize">分词</option>
+                    <option class="top_font" value="splitS">断句</option>
+                    <option class="top_font" value="T2S">繁转简</option>
+                </select>
+            </div>
+            <div style="height: 90%">
+                <div style="float: left; height: 95%; width: 40%; margin-left: 3%;">
+                    <textarea id ="input" class="input_style" placeholder="输入古文，用于翻译、分词、断句、繁转简等..."></textarea>
+                </div>
+                <div  style="float: left; margin-left: 5%; margin-right: 5%; margin-top: 200px;" >
+                    <button onclick="execute()"><img src="execute.png" alt=""></button>
+                </div>
+                <div style="float: left;  height: 95%; width: 40%;">
+                    <textarea id = "output" class="input_style" readonly="readonly" style = "background-color: #f1f1f1">
+					</textarea>
+                </div>
+            </div>
+        </div>
+        <div id="bottom" style="height: 13%; background-color: rgb(176,43,197); text-align: center; padding-top: 1%;">
+            <p >
+                南京理工大学&nbsp&nbsp经济管理学院&nbsp&nbsp信息管理与信息系统&nbsp&nbsp918107390115&nbsp&nbsp付维斌
+            </p>
+            <p >
+                基于深度学习的古文-白话文机器翻译研究
+            </p>
+        </div>
+    </body>
+</html>
