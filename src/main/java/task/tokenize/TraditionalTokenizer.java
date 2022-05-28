@@ -1,12 +1,15 @@
 package task.tokenize;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 //古文分词器，调用jiayan程序
 public class TraditionalTokenizer {
 
     public synchronized String token(String src) throws IOException {
-        Process processer = Runtime.getRuntime().exec("python C:\\Users\\Administrator\\Desktop\\毕业论文\\ancientspeak\\src\\test\\java\\ProcessTest\\test.py");
+        String cmd = "python jiayan_tokenizer.py " + src;
+        Process processer = Runtime.getRuntime().exec(cmd);
 
         new Thread() {
             public void run() {
@@ -18,8 +21,7 @@ public class TraditionalTokenizer {
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
-                }
-                finally{
+                } finally {
                     try {
                         err.close();
                     } catch (IOException e) {
@@ -29,18 +31,14 @@ public class TraditionalTokenizer {
             }
         }.start();
 
-        BufferedWriter out = new BufferedWriter(new OutputStreamWriter(processer.getOutputStream()));
         BufferedReader in = new BufferedReader(new InputStreamReader(processer.getInputStream()));
-        out.write(src);
-        out.close();
         String result = null;
         String line = null;
-        while((line = in.readLine()) != null){
+        while ((line = in.readLine()) != null) {
             result += line;
-            if(result == "end"){
-                in.close();
-            }
+
         }
+        in.close();
         processer.destroyForcibly();
         return result;
     }

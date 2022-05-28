@@ -27,26 +27,6 @@ public class TestInputStream {
                 }
             }
         }.start();
-//        new Thread() {
-//            public void run() {
-//                BufferedReader in = new BufferedReader(new InputStreamReader(processer.getInputStream()));
-//                try {
-//                    String result = null;
-//                    while((result = in.readLine()) != null){
-//                        System.out.println(result);
-//                    }
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                finally{
-//                    try {
-//                        in.close();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        }.start();
 
 
         BufferedReader in = new BufferedReader(new InputStreamReader(processer.getInputStream()));

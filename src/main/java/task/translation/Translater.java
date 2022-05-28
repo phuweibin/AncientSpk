@@ -5,7 +5,8 @@ import java.io.*;
 public class Translater {
 
     public synchronized String translate(String src) throws IOException {
-        Process processer = Runtime.getRuntime().exec("C:\\Users\\Administrator\\Desktop\\毕业论文\\ancientspeak\\src\\test\\java\\ProcessTest\\test.py");
+        String cmd = " fairseq-interactive data-bin/5_10.tokenized.gu-bai --path checkpoints/5_10_tokenized/checkpoint_best.pt";
+        Process processer = Runtime.getRuntime().exec(cmd);
 
         new Thread() {
             public void run() {
@@ -36,10 +37,9 @@ public class Translater {
         String line = null;
         while((line = in.readLine()) != null){
             result += line;
-            if(result == "end"){
-                in.close();
-            }
         }
+
+        in.close();
         processer.destroyForcibly();
         return result;
     }
